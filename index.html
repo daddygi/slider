@@ -1,83 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Include Swiper.js via CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-    />
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <style>
-      .swiper-container {
+      /* Style for the card container */
+      .card-container {
+        perspective: 1000px;
+        width: 200px;
+        height: 300px;
+        position: relative;
+      }
+
+      /* Style for the card that will flip on hover */
+      .card {
         width: 100%;
-        height: 400px;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.5s;
       }
 
-      .swiper-slide {
-        text-align: center;
-        font-size: 24px;
-        background: #eee;
+      /* Style for the front and back of the card */
+      .front,
+      .back {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        backface-visibility: hidden;
+      }
+
+      /* Style for the front of the card */
+      .front {
+        background-color: #3498db;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
       }
 
-      .counter {
-        text-align: center;
-        font-size: 18px;
+      /* Style for the back of the card */
+      .back {
+        background-color: #e74c3c;
+        transform: rotateY(180deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Apply the flip effect on hover */
+      .card-container:hover .card {
+        transform: rotateY(180deg);
       }
     </style>
   </head>
   <body>
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">Slide 1</div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">Slide 3</div>
-        <!-- Add more slides as needed -->
+    <div class="card-container">
+      <div class="card">
+        <div class="front">
+          <p>Front</p>
+        </div>
+        <div class="back">
+          <p>Back</p>
+        </div>
       </div>
-      <!-- Add navigation buttons if desired -->
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
     </div>
-
-    <!-- Custom slide counter -->
-    <div class="counter"></div>
-
-    <script>
-      var swiper = new Swiper(".swiper-container", {
-        // Optional parameters
-        direction: "horizontal",
-        loop: true,
-
-        // Navigation arrows
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-
-        on: {
-          slideChange: function () {
-            var currentSlide = swiper.realIndex + 1;
-            updateCounter(currentSlide);
-          },
-        },
-      });
-
-      // Function to update the slide counter
-      function updateCounter(current) {
-        var counterElement = document.querySelector(".counter");
-        if (counterElement) {
-          counterElement.innerHTML = current;
-        }
-      }
-
-      // Initialize the counter on the first slide
-      updateCounter(1);
-    </script>
   </body>
 </html>
